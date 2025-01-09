@@ -1,0 +1,3 @@
+[submodule "RISC-X"]
+	path = RISC-X
+	url = https://github.com/ArthurMdrs/RISC-X
