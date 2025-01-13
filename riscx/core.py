@@ -1,8 +1,4 @@
-#
-# This file is part of LiteX.
-#
-# Copyright (c) 2020 Antmicro <www.antmicro.com>
-# SPDX-License-Identifier: BSD-2-Clause
+# Davi Lima de Medeiros  
 
 import os
 import re
@@ -17,7 +13,7 @@ from litex.soc.interconnect import wishbone, stream
 from litex.soc.interconnect.csr import *
 from litex.soc.cores.cpu import CPU, CPU_GCC_TRIPLE_RISCV32
 
-# Variants -----------------------------------------------------------------------------------------
+
 
 CPU_VARIANTS = ["standard", "standard+fpu"]
 
@@ -58,20 +54,6 @@ apb_layout = [
     ("pready",  1),
     ("pslverr", 1),
 ]
-#até aqui parece q nd muda crt?
-# vh: vc ta dizendo... nada muda em relação a que?
-#nd muda em relação do cv32 para o nosso, ele n puxa nada, parece só ser uma relação do litex, olha o minerva do lado.
-#vh: pra eu confirmar q n tem nada diferente, precisaria fazer uma análise mais minuciosa, então, a princípio, da pra assumir q a sua análise ta certa.
-# não assuma, pq eu tbm n sei, e acho q precisa de uma analise mais detalhada, to pensando por cima e de forma generica.
-#vh:   se vc meche o mouse, eu n consigo digitar... btw eu vou fazer essa análise outra hora, quando eu estiver mais focado nisso
-# sim senhor, n sabia isso do mouse ksksk kkkk
-# vh: dps eu vou tentar entender melhor o código e o que cada coisa quer dizer. agr eu entrei mais pra garantir o acesso e pra combinar o caminho a ser seguido
-# ah então pode ir meu amigo, se vc estiver p fzr algo pode ir, a gente faz dps, e melhor q dps a gente tem o disc p ir falando. 
-# vh: blz, até mais 👍
-# flw amigo
-# ksksksksksk queria o coração :( ❤
-#dlskjljkfdslkjdsflkjdflkjdfs flw pai flw
-
 
 # Helpers ------------------------------------------------------------------------------------------
 
@@ -303,63 +285,6 @@ class RISCX(CPU):
         ]
 
         self.cpu_params = dict(
-            # Clk / Rst.
-            # i_clk_i              = ClockSignal("sys"),
-            # i_rst_ni             = ~ResetSignal("sys"),
-
-
-            # Controls.
-            # i_pulp_clock_en_i     = 1,
-            # i_scan_cg_en_i        = 0,
-            # i_mtvec_addr_i        = 0,
-            # i_dm_halt_addr_i      = 0,
-            # i_hart_id_i           = 0,
-            # i_dm_exception_addr_i = 0,
-
-            # IBus.
-            # o_instr_req_o        = ibus.req,
-            # i_instr_gnt_i        = ibus.gnt,
-            # i_instr_rvalid_i     = ibus.rvalid,
-            # o_instr_addr_o       = ibus.addr,
-            # i_instr_rdata_i      = ibus.rdata,
-
-            # DBus.
-            # o_data_req_o         = dbus.req,
-            # i_data_gnt_i         = dbus.gnt,
-            # i_data_rvalid_i      = dbus.rvalid,
-            # o_data_we_o          = dbus.we,
-            # o_data_be_o          = dbus.be,
-            # o_data_addr_o        = dbus.addr,
-            # o_data_wdata_o       = dbus.wdata,
-            # i_data_rdata_i       = dbus.rdata,
-
-            # IRQ.
-            #i_irq_i          = Cat(self.interrupt_padding, self.interrupt),
-
-            # Debug.
-            #i_debug_req_i    = 0,
-
-            # CPU Control.
-            #i_fetch_enable_i = 1,
-
-
-
-            # clk_i                 = ClockSignal("sys"),
-            # rst_n_i               = ~ResetSignal("sys"),
-
-            # dmem_rdata_i         = dbus.rdata,
-            # dmem_wdata_o         = dbus.wdata,
-            # dmem_addr_o          = dbus.addr,
-            # dmem_wen_o           = dbus.we,
-            # dmem_ben_o           = dbus.be,
-
-            # imem_rdata_i         = ibus.rdata,
-            # imem_addr_o          = ibus.addr,
-
-            # hartid_i              = 0,
-            # mtvec_i               = 0,
-
-
             
             i_clk_i                 = ClockSignal("sys"),
             i_rst_n_i               = ~ResetSignal("sys"),
@@ -375,7 +300,7 @@ class RISCX(CPU):
 
             i_hartid_i              = 0,
             i_mtvec_i               = 0,
-            i_boot_addr_i           =0,
+            i_boot_addr_i           = 0,
 
 
         )
@@ -383,7 +308,7 @@ class RISCX(CPU):
         # Add Verilog sources.
         if variant in self.has_fpu:
             # Specific FPU variant parameters/files.
-            self.cpu_params.update(ISA_F=0)
+            self.cpu_params.update(ISA_F=1)
             add_manifest_sources(platform, 'file_list.f')
         else:
             add_manifest_sources(platform, 'file_list.f')
